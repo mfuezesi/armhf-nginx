@@ -1,16 +1,21 @@
 #
-# Nginx Dockerfile
+# Nginx Dockerfile for armhf (ARMv7+) devices
 #
-# https://github.com/dockerfile/nginx
+# Based on https://github.com/dockerfile/nginx
 #
 
 # Pull base image.
-FROM dockerfile/ubuntu
+FROM mazzolino/armhf-ubuntu:14.04
+
+MAINTAINER Melchior Wom Füzesi <mfuezesi@gmail.com>
+
+# Install dependencies
+RUN apt-get update
+RUN apt-get install -y software-properties-common
 
 # Install Nginx.
 RUN \
   add-apt-repository -y ppa:nginx/stable && \
-  apt-get update && \
   apt-get install -y nginx && \
   rm -rf /var/lib/apt/lists/* && \
   echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
